@@ -1,13 +1,14 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 import os
 import time
 from colorama import Fore, Style  # Added colorama for terminal text color
+import pyfiglet  # Added pyfiglet for ASCII art
 
 # Initialize colorama
 Fore.YELLOW
 Fore.GREEN
+Fore.LIGHTBLACK_EX
 Style.RESET_ALL
 
 output_path = os.path.join("data", "output")
@@ -18,6 +19,13 @@ os.makedirs(output_path, exist_ok=True)
 driver = webdriver.Chrome()
 
 try:
+    # Generate ASCII art for "SpyderSync" in blue
+    ascii_art = pyfiglet.figlet_format("SpyderSync", font="slant")
+    print(f"{Fore.BLUE}{ascii_art}{Style.RESET_ALL}")
+
+    # Print a gray-colored note
+    print(f"{Fore.LIGHTBLACK_EX}(Press Ctrl+C to stop the script){Style.RESET_ALL}")
+
     driver.get("https://www.cracked.io")
 
     while True:
@@ -46,6 +54,9 @@ try:
             time.sleep(2)  # Add a delay to allow new threads to load
         else:
             break  # Exit the loop if "More" button is not found
+
+except KeyboardInterrupt:
+    print(f"{Fore.LIGHTBLACK_EX}(Ctrl+C pressed. Stopping the script...){Style.RESET_ALL}")
 
 except Exception as e:
     print(f"{Fore.RED}An error occurred: {e}{Style.RESET_ALL}")
