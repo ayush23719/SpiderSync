@@ -20,4 +20,14 @@ SpiderSync is a Python-based web scraping tool that allows you to efficiently ga
 git clone https://github.com/your-username/SpiderSync.git
 ```
 
-2. Navigate to dir
+2. Navigate to directory
+
+```bash
+cd SpiderSync
+```
+
+3. Run script `main.py`
+
+```bash
+python scripts/main.py
+```
