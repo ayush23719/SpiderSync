@@ -15,6 +15,20 @@ output_path = os.path.join("data", "output")
 output_file = "output.txt"
 os.makedirs(output_path, exist_ok=True)
 
+# Prompt the user for search type
+print(f"{Fore.BLUE}Choose a search type:")
+print(f"{Fore.BLUE}1. Press 's' to search for a specific keyword")
+print(f"{Fore.BLUE}2. Press 'u' for a universal search")
+search_type = input(f"{Fore.BLUE}Enter your choice (s/u): {Style.RESET_ALL}")
+
+# Initialize the keyword variable
+keyword = None
+
+# If the user chose specific keyword search ('s')
+if search_type.lower() == 's':
+    keyword = input(
+        f"{Fore.BLUE}Enter the keyword to search for: {Style.RESET_ALL}")
+
 # driver = webdriver.Edge()
 driver = webdriver.Chrome()
 
@@ -44,8 +58,12 @@ try:
                 text = post_link_a.text  # Extract the text
                 href = post_link_a.get_attribute(
                     "href")  # Extract the href attribute
-                print(f"{Fore.YELLOW}Text: {text}, Href: {href}{Style.RESET_ALL}")
-                f.write(f"Text: {text}, Href: {href}\n")
+
+                # Check if keyword is None (universal search) or keyword is in the title
+                if keyword is None or keyword.lower() in text.lower():
+                    print(
+                        f"{Fore.YELLOW}Text: {text}, Href: {href}{Style.RESET_ALL}")
+                    f.write(f"Text: {text}, Href: {href}\n")
 
         # Click the "More" button repeatedly until it's not found
         more_button = driver.find_element(By.CLASS_NAME, "forum-subforums")
